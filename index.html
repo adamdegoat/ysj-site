@@ -307,7 +307,13 @@ select.filter{padding:8px 12px;border:1.5px solid var(--border);border-radius:va
   <div class="main">
     <div class="main-header">
       <h1 id="view-title">Dashboard</h1>
-      <div id="header-action"></div>
+      <div style="display:flex;align-items:center;gap:.75rem">
+        <div id="header-action"></div>
+        <button onclick="navigate('guide')" style="display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:20px;border:1.5px solid var(--border);background:var(--bg);color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;transition:all .18s;white-space:nowrap" onmouseover="this.style.borderColor='var(--blue2)';this.style.color='var(--blue)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          How to Use
+        </button>
+      </div>
     </div>
     <div class="content" id="view-content">
       <div class="loading-center"><div class="spinner"></div> Loading…</div>
