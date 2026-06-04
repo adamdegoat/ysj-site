@@ -4,19 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>YSJ — Client Management</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root {
-  --navy:#1e3a5f; --navy2:#2d5282; --blue:#2b6cb0; --blue2:#3182ce;
-  --bg:#f7f8fa; --card:#fff; --border:#e2e8f0;
-  --text:#1a202c; --muted:#718096; --muted2:#a0aec0;
-  --green:#38a169; --red:#e53e3e; --orange:#dd6b20; --yellow:#d69e2e;
-  --green-bg:#f0fff4; --red-bg:#fff5f5; --orange-bg:#fffaf0; --yellow-bg:#fffff0;
-  --sidebar:240px; --radius:8px;
+  --navy:#0f2342; --navy2:#1a3a6e; --blue:#2563eb; --blue2:#3b82f6;
+  --bg:#f0f4f8; --card:#ffffff; --border:#e2e8f0;
+  --text:#0f172a; --muted:#64748b; --muted2:#94a3b8;
+  --green:#16a34a; --red:#dc2626; --orange:#ea580c; --yellow:#ca8a04;
+  --green-bg:#f0fdf4; --red-bg:#fef2f2; --orange-bg:#fff7ed; --yellow-bg:#fefce8;
+  --sidebar:248px; --radius:10px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.section-title,.detail-name,.stat-card .value,.sidebar-logo h2{font-family:'Plus Jakarta Sans',sans-serif}
 .hidden{display:none!important}
 a{color:var(--blue);text-decoration:none}
 
@@ -30,35 +31,32 @@ a{color:var(--blue);text-decoration:none}
 .auth-card input{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius);font-family:inherit;font-size:14px;outline:none;transition:border .2s}
 .auth-card input:focus{border-color:var(--blue2)}
 .form-group{margin-bottom:1.2rem}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 18px;border-radius:var(--radius);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all .2s}
-.btn-primary{background:var(--navy);color:#fff}
-.btn-primary:hover{background:var(--navy2)}
-.btn-secondary{background:var(--bg);color:var(--text);border:1.5px solid var(--border)}
-.btn-secondary:hover{background:var(--border)}
-.btn-danger{background:var(--red);color:#fff}
-.btn-danger:hover{opacity:.85}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 18px;border-radius:var(--radius);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all .18s;letter-spacing:.1px}
+.btn-primary{background:linear-gradient(135deg,#1d4ed8 0%,#2563eb 100%);color:#fff;box-shadow:0 2px 8px rgba(37,99,235,.35)}
+.btn-primary:hover{background:linear-gradient(135deg,#1e40af 0%,#1d4ed8 100%);box-shadow:0 4px 14px rgba(37,99,235,.45);transform:translateY(-1px)}
+.btn-secondary{background:var(--card);color:var(--text);border:1.5px solid var(--border)}
+.btn-secondary:hover{background:var(--bg);border-color:var(--muted2)}
+.btn-danger{background:linear-gradient(135deg,#b91c1c,#dc2626);color:#fff;box-shadow:0 2px 6px rgba(220,38,38,.3)}
+.btn-danger:hover{opacity:.88;transform:translateY(-1px)}
 .btn-sm{padding:6px 12px;font-size:12px}
 .btn-full{width:100%}
 .auth-note{text-align:center;color:var(--muted);font-size:12px;margin-top:1rem}
 
 /* LAYOUT */
 #app{display:flex;min-height:100vh}
-.sidebar{width:var(--sidebar);background:var(--navy);position:fixed;top:0;left:0;height:100vh;display:flex;flex-direction:column;z-index:200}
-.sidebar-logo{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid rgba(255,255,255,.1)}
-.sidebar-logo h2{color:#fff;font-size:1.4rem;font-weight:700;letter-spacing:2px}
-.sidebar-logo p{color:rgba(255,255,255,.5);font-size:11px;margin-top:2px}
-.sidebar-nav{flex:1;padding:1rem 0;overflow-y:auto}
-.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;color:rgba(255,255,255,.65);cursor:pointer;transition:all .15s;font-weight:500;font-size:13px}
-.nav-item:hover{color:#fff;background:rgba(255,255,255,.08)}
-.nav-item.active{color:#fff;background:rgba(255,255,255,.15);border-right:3px solid #63b3ed}
+.sidebar{width:var(--sidebar);background:linear-gradient(180deg,#0b1d3a 0%,#0f2342 40%,#132b52 100%);position:fixed;top:0;left:0;height:100vh;display:flex;flex-direction:column;z-index:200;box-shadow:4px 0 24px rgba(0,0,0,.18)}
+.sidebar-logo{padding:1.6rem 1.4rem 1.1rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.sidebar-logo h2{color:#fff;font-size:1.5rem;font-weight:800;letter-spacing:3px;background:linear-gradient(135deg,#fff 0%,#93c5fd 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sidebar-logo p{color:rgba(255,255,255,.4);font-size:11px;margin-top:3px;letter-spacing:.5px;text-transform:uppercase}
+.sidebar-nav{flex:1;padding:1rem .75rem;overflow-y:auto}
+.nav-item{display:flex;align-items:center;gap:10px;padding:.72rem 1rem;color:rgba(255,255,255,.55);cursor:pointer;transition:all .18s;font-weight:500;font-size:13px;border-radius:8px;margin-bottom:2px}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,.09)}
+.nav-item.active{color:#fff;background:rgba(59,130,246,.25);border:1px solid rgba(59,130,246,.3);box-shadow:0 2px 8px rgba(59,130,246,.15)}
 .nav-item svg{flex-shrink:0;width:16px;height:16px}
-.sidebar-footer{padding:1rem 1.25rem;border-top:1px solid rgba(255,255,255,.1)}
-.sidebar-footer .user-info{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.user-avatar{width:32px;height:32px;background:rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:13px}
-.user-email{color:rgba(255,255,255,.7);font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sidebar-footer{padding:1rem 1.4rem;border-top:1px solid rgba(255,255,255,.07)}
 .main{margin-left:var(--sidebar);min-height:100vh;flex:1}
-.main-header{background:var(--card);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-.main-header h1{font-size:1.15rem;font-weight:600;color:var(--text)}
+.main-header{background:var(--card);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(0,0,0,.06)}
+.main-header h1{font-size:1.2rem;font-weight:700;color:var(--text)}
 .content{padding:1.75rem 2rem}
 .bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--navy);z-index:200;padding:.5rem 0 .25rem}
 .bottom-nav-items{display:flex;justify-content:space-around}
@@ -76,17 +74,22 @@ a{color:var(--blue);text-decoration:none}
 
 /* CARDS & STATS */
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:1.5rem}
-.stat-card{background:var(--card);border-radius:var(--radius);padding:1.25rem;border:1px solid var(--border)}
-.stat-card .label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:.5rem}
-.stat-card .value{font-size:1.75rem;font-weight:700;color:var(--navy)}
+.stat-card{background:var(--card);border-radius:var(--radius);padding:1.35rem 1.25rem;border:1px solid var(--border);box-shadow:0 1px 6px rgba(0,0,0,.05);position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--blue2);border-radius:var(--radius) 0 0 var(--radius)}
+.stat-card.green::before{background:var(--green)}
+.stat-card.red::before{background:var(--red)}
+.stat-card.orange::before{background:var(--orange)}
+.stat-card .label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:.5rem}
+.stat-card .value{font-size:1.8rem;font-weight:800;color:var(--navy)}
 .stat-card .sub{font-size:12px;color:var(--muted);margin-top:4px}
-.stat-card.accent{background:var(--navy);border-color:var(--navy)}
+.stat-card.accent{background:linear-gradient(135deg,#0f2342 0%,#1a3a6e 100%);border-color:#1a3a6e}
+.stat-card.accent::before{background:rgba(255,255,255,.3)}
 .stat-card.accent .label,.stat-card.accent .sub{color:rgba(255,255,255,.6)}
 .stat-card.accent .value{color:#fff}
-.card{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:1.25rem;margin-bottom:1rem}
+.card{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:1.35rem;margin-bottom:1rem;box-shadow:0 1px 6px rgba(0,0,0,.05)}
 .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
-.card-title{font-size:14px;font-weight:600;color:var(--text)}
-.section-title{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:1rem}
+.card-title{font-size:14px;font-weight:700;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif}
+.section-title{font-size:17px;font-weight:800;color:var(--navy);margin-bottom:1rem}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
 @media(max-width:900px){.two-col{grid-template-columns:1fr}}
 
@@ -111,9 +114,9 @@ tr:hover td{background:#fafbfc}
 
 /* CLIENT CARDS */
 .clients-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
-.client-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;cursor:pointer;transition:all .2s}
-.client-card:hover{border-color:var(--blue2);box-shadow:0 4px 16px rgba(43,108,176,.1)}
-.client-name{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:.35rem}
+.client-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.35rem;cursor:pointer;transition:all .22s;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.client-card:hover{border-color:var(--blue2);box-shadow:0 6px 24px rgba(37,99,235,.12);transform:translateY(-2px)}
+.client-name{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:.35rem;font-family:'Plus Jakarta Sans',sans-serif}
 .client-meta{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .client-footer{display:flex;align-items:center;justify-content:space-between;margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--border)}
 
@@ -268,6 +271,10 @@ select.filter{padding:8px 12px;border:1.5px solid var(--border);border-radius:va
       <div class="nav-item" onclick="navigate('reference')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
         Reference
+      </div>
+      <div class="nav-item" onclick="navigate('guide')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        How to Use
       </div>
     </nav>
     <div class="sidebar-footer">
@@ -467,7 +474,7 @@ function navigate(view, param = null) {
   S.view = view; S.clientId = param
   document.querySelectorAll('.nav-item,.bottom-nav-item').forEach(el => el.classList.remove('active'))
   document.querySelectorAll(`.nav-item[onclick*="'${view}'"],.bottom-nav-item[onclick*="'${view}'"]`).forEach(el => el.classList.add('active'))
-  const titles = { dashboard:'Dashboard', clients:'Clients', policies:'Policies', pipeline:'Pipeline', calculators:'Calculators', reference:'Reference' }
+  const titles = { dashboard:'Dashboard', clients:'Clients', policies:'Policies', pipeline:'Pipeline', calculators:'Calculators', reference:'Reference', guide:'How to Use YSJ' }
   document.getElementById('view-title').textContent = param ? clientName(param) : (titles[view] || view)
   renderView()
 }
@@ -477,11 +484,12 @@ function renderView() {
   const ha = document.getElementById('header-action')
   ha.innerHTML = ''
   if (S.view === 'dashboard')    { el.innerHTML = renderDashboard(); ha.innerHTML = ''; return }
-  if (S.view === 'clients')      { if (S.clientId) { el.innerHTML = renderClientDetail(S.clientId) } else { el.innerHTML = renderClients(); ha.innerHTML = `<button class="btn btn-primary btn-sm" onclick="showClientModal()">+ Add Client</button>` } return }
+  if (S.view === 'clients')      { if (S.clientId) { el.innerHTML = renderClientDetail(S.clientId) } else { el.innerHTML = renderClients(); ha.innerHTML = `<button class="btn btn-primary" onclick="showClientModal()" style="font-size:13px;padding:9px 18px">＋ Add New Client</button>` } return }
   if (S.view === 'policies')     { el.innerHTML = renderPolicies(); return }
   if (S.view === 'pipeline')     { el.innerHTML = renderPipeline(); return }
   if (S.view === 'calculators')  { el.innerHTML = renderCalculators(); attachCalcListeners(); return }
   if (S.view === 'reference')    { el.innerHTML = renderReference(); return }
+  if (S.view === 'guide')        { el.innerHTML = renderGuide(); return }
 }
 
 // ── DASHBOARD ────────────────────────────────────────────────
@@ -496,11 +504,21 @@ function renderDashboard() {
   const birthdayClients = S.clients.filter(c => { const d = daysUntilBirthday(c.dob); return d !== null && d <= 30 }).sort((a,b) => daysUntilBirthday(a.dob) - daysUntilBirthday(b.dob))
   const recentInteractions = S.interactions.slice(0, 5)
 
+  const now = new Date(); const hour = now.getHours()
+  const greet = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening'
   return `
+<div style="background:linear-gradient(135deg,#0f2342 0%,#1a3a6e 100%);border-radius:14px;padding:1.5rem 2rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;box-shadow:0 4px 20px rgba(15,35,66,.25)">
+  <div>
+    <div style="color:rgba(255,255,255,.6);font-size:13px;margin-bottom:.25rem">${greet} 👋</div>
+    <div style="color:#fff;font-size:1.2rem;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif">Welcome to your YSJ dashboard</div>
+    <div style="color:rgba(255,255,255,.55);font-size:13px;margin-top:.25rem">${S.clients.length} client${S.clients.length!==1?'s':''} in your book · ${S.policies.filter(p=>p.status==='active').length} active polic${S.policies.filter(p=>p.status==='active').length===1?'y':'ies'}</div>
+  </div>
+  <button class="btn btn-primary" onclick="navigate('clients');setTimeout(()=>showClientModal(),100)" style="background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);backdrop-filter:blur(8px);font-size:13px;padding:10px 20px">＋ Add New Client</button>
+</div>
 <div class="stats-grid">
-  <div class="stat-card"><div class="label">Active Clients</div><div class="value">${activeClients}</div><div class="sub">${S.clients.length} total</div></div>
-  <div class="stat-card ${expiring30>0?'':''}"><div class="label">Renewals Due (30d)</div><div class="value" style="color:${expiring30>0?'var(--red)':'var(--navy)'}">${expiring30}</div><div class="sub">Policies expiring soon</div></div>
-  <div class="stat-card"><div class="label">Pending Tasks</div><div class="value" style="color:${pendingTasks>0?'var(--orange)':'var(--navy)'}">${pendingTasks}</div><div class="sub">Follow-ups due</div></div>
+  <div class="stat-card green"><div class="label">Active Clients</div><div class="value">${activeClients}</div><div class="sub">${S.clients.length} total in book</div></div>
+  <div class="stat-card ${expiring30>0?'red':''}"><div class="label">Renewals Due (30d)</div><div class="value" style="color:${expiring30>0?'var(--red)':'var(--navy)'}">${expiring30}</div><div class="sub">Policies expiring soon</div></div>
+  <div class="stat-card ${pendingTasks>0?'orange':''}"><div class="label">Pending Tasks</div><div class="value" style="color:${pendingTasks>0?'var(--orange)':'var(--navy)'}">${pendingTasks}</div><div class="sub">Follow-ups due</div></div>
   <div class="stat-card accent"><div class="label">Annual Premium Book</div><div class="value">${fmtCur(totalPremium)}</div><div class="sub">Across all active policies</div></div>
 </div>
 <div class="two-col">
@@ -582,7 +600,12 @@ function renderClients() {
     <option value="inactive" ${stageFilter==='inactive'?'selected':''}>Inactive</option>
   </select>
 </div>
-${list.length ? `<div class="clients-grid">${list.map(c => {
+${S.clients.length === 0 ? `<div style="text-align:center;padding:3rem 1rem;background:var(--card);border-radius:14px;border:2px dashed var(--border)">
+  <div style="font-size:3rem;margin-bottom:1rem">👥</div>
+  <div style="font-size:1.1rem;font-weight:700;color:var(--navy);font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:.5rem">No clients yet</div>
+  <div style="color:var(--muted);font-size:13px;margin-bottom:1.5rem">Add your first client to get started. It takes less than a minute.</div>
+  <button class="btn btn-primary" onclick="showClientModal()" style="font-size:14px;padding:12px 28px">＋ Add Your First Client</button>
+</div>` : list.length ? `<div class="clients-grid">${list.map(c => {
   const cp = S.policies.filter(p => p.client_id === c.id && p.status === 'active')
   const nextRenewal = cp.filter(p=>p.end_date).sort((a,b)=>new Date(a.end_date)-new Date(b.end_date))[0]
   return `<div class="client-card" onclick="navigate('clients','${c.id}')">
@@ -598,7 +621,7 @@ ${list.length ? `<div class="clients-grid">${list.map(c => {
       <span style="font-size:12px;color:var(--muted)">${cp.length} polic${cp.length===1?'y':'ies'}</span>
       ${nextRenewal ? expiryBadge(nextRenewal.end_date) : ''}
     </div>
-  </div>`}).join('')}</div>` : `<div class="empty-state" style="margin-top:3rem"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--muted2)" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><p>No clients found. Add your first client.</p></div>`}`
+  </div>`}).join('')}</div>` : `<div class="empty-state" style="margin-top:2rem"><p>No clients match your search.</p></div>`}`
 }
 
 function renderClientDetail(id) {
@@ -1064,6 +1087,66 @@ async function deleteTask(id) {
   if (error) { toast('Error', 'error'); return }
   S.tasks = S.tasks.filter(t => t.id !== id)
   renderView()
+}
+
+// ── GUIDE ────────────────────────────────────────────────────
+
+function renderGuide() {
+  return `
+<div style="max-width:720px">
+
+<div style="background:linear-gradient(135deg,#0f2342 0%,#1a3a6e 100%);border-radius:14px;padding:2rem;margin-bottom:1.75rem;box-shadow:0 4px 20px rgba(15,35,66,.2)">
+  <div style="color:rgba(255,255,255,.6);font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-bottom:.5rem">Built for you</div>
+  <h2 style="color:#fff;font-size:1.5rem;font-weight:800;margin-bottom:.75rem">Your Personal Client Intelligence System</h2>
+  <p style="color:rgba(255,255,255,.7);font-size:14px;line-height:1.7">YSJ is a private, professional CRM built specifically for a Singapore financial consultant. It keeps your entire client book organised, alerts you to renewals before they lapse, spots coverage gaps automatically, and gives you the right tools at the right time — all in one place, always available.</p>
+</div>
+
+<div class="card">
+  <div class="card-title" style="margin-bottom:1.25rem;font-size:16px">🚀 Getting Started — 4 Simple Steps</div>
+  ${[
+    ['1','Add your clients','Go to <b>Clients</b> in the left menu and click <b>Add New Client</b>. Fill in their name, phone, date of birth, income, and stage (Lead / Prospect / Active). The more detail you add, the smarter the system gets.'],
+    ['2','Add their policies','Open any client and click <b>Add Policy</b>. Add every policy they hold — type, insurer, premium, sum assured, and expiry date. This is what powers the renewal alerts.'],
+    ['3','Log your interactions','After every call or meeting, click <b>Log Note</b> on the client page. Takes 30 seconds. Builds a permanent record of your relationship history.'],
+    ['4','Check your dashboard daily','The dashboard tells you exactly who to call this week — renewals due, overdue tasks, upcoming birthdays. Never let a client fall through the cracks again.']
+  ].map(([n,title,desc]) => `
+  <div style="display:flex;gap:1rem;padding:.85rem 0;border-bottom:1px solid var(--border)">
+    <div style="width:32px;height:32px;background:linear-gradient(135deg,#1d4ed8,#3b82f6);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px;flex-shrink:0;box-shadow:0 2px 8px rgba(37,99,235,.3)">${n}</div>
+    <div><div style="font-weight:700;color:var(--navy);margin-bottom:.2rem;font-family:'Plus Jakarta Sans',sans-serif">${title}</div><div style="font-size:13px;color:var(--muted);line-height:1.6">${desc}</div></div>
+  </div>`).join('')}
+</div>
+
+<div class="card">
+  <div class="card-title" style="margin-bottom:1.25rem;font-size:16px">🧠 What Makes This System Smart</div>
+  ${[
+    ['⚠️ Coverage Gap Detector','The system automatically analyses every client\'s age, income, dependants, and existing policies — then flags gaps like missing critical illness cover, no life cover, or being underinsured. It tells you exactly what to pitch, without you having to think about it.'],
+    ['📋 Weekly Focus List','Every time you open the dashboard, the system generates a priority list of clients to contact this week — based on upcoming renewals, overdue follow-ups, and birthdays. You never need to wonder "who should I call today?"'],
+    ['🎂 Birthday Tracker','Clients with birthdays this month are automatically surfaced on the dashboard. A simple birthday call is one of the highest-return activities in this industry.'],
+    ['📊 Pipeline Management','Every client has a stage: Lead → Prospect → Active → Inactive. The Pipeline view shows your full funnel at a glance so you always know where your business stands.'],
+    ['🔴 Renewal Alerts','Policies expiring within 30 days show in red throughout the system. Catch renewals before they lapse — protecting your client and your book of business.'],
+    ['🔢 Financial Calculators','Built-in calculators for life cover needs, critical illness cover, retirement income gap, and HDB mortgage protection. Run the numbers with a client in real time during a meeting.']
+  ].map(([icon_title, desc]) => `
+  <div style="display:flex;gap:.85rem;padding:.8rem 0;border-bottom:1px solid var(--border)">
+    <div style="font-size:1.2rem;flex-shrink:0;margin-top:1px">${icon_title.split(' ')[0]}</div>
+    <div><div style="font-weight:700;color:var(--navy);margin-bottom:.2rem;font-family:'Plus Jakarta Sans',sans-serif">${icon_title.split(' ').slice(1).join(' ')}</div><div style="font-size:13px;color:var(--muted);line-height:1.6">${desc}</div></div>
+  </div>`).join('')}
+</div>
+
+<div class="card">
+  <div class="card-title" style="margin-bottom:1.25rem;font-size:16px">📚 What's in the Reference Tab</div>
+  <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:.75rem">The Reference tab is your built-in knowledge base — three sections to help you in any client situation:</p>
+  ${[
+    ['Life Stage Guide','Recommends the right products for every life stage — from fresh graduates to retirees. Use this to structure your conversation before a meeting.'],
+    ['Objection Handler','Quick responses to the 7 most common objections: "too expensive", "company insurance is enough", "I\'ll think about it", and more. Read them before a pitch call.'],
+    ['Key Rates & Facts','Singapore CPF rates, MediShield Life, SRS limits, and more — always at your fingertips when a client asks a quick question.']
+  ].map(([t,d]) => `<div style="padding:.65rem 0;border-bottom:1px solid var(--border)"><div style="font-weight:700;font-size:13px;color:var(--navy);margin-bottom:.2rem">${t}</div><div style="font-size:13px;color:var(--muted);line-height:1.6">${d}</div></div>`).join('')}
+</div>
+
+<div style="background:var(--green-bg);border:1px solid rgba(22,163,74,.2);border-radius:var(--radius);padding:1.25rem;margin-bottom:1rem">
+  <div style="font-weight:700;color:var(--green);margin-bottom:.35rem;font-family:'Plus Jakarta Sans',sans-serif">💡 Pro tip</div>
+  <div style="font-size:13px;color:#166534;line-height:1.7">The system works best when it's kept up to date. Spend 5 minutes after each client meeting logging a note and updating their stage. Over time, the dashboard becomes your most powerful prospecting tool — it knows your entire book better than any spreadsheet ever could.</div>
+</div>
+
+</div>`
 }
 
 // ── INIT ─────────────────────────────────────────────────────
