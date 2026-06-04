@@ -570,7 +570,7 @@ function renderDashboard() {
 <div style="background:linear-gradient(135deg,#0f2342 0%,#1a3a6e 100%);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.85rem;box-shadow:0 4px 20px rgba(15,35,66,.25)">
   <div>
     <div style="color:rgba(255,255,255,.6);font-size:13px;margin-bottom:.25rem">${greet} 👋</div>
-    <div style="color:#fff;font-size:1.2rem;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif">Welcome to your Shun Jie dashboard</div>
+    <div style="color:#fff;font-size:1.2rem;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif">Welcome to Shun Jie dashboard</div>
     <div style="color:rgba(255,255,255,.55);font-size:13px;margin-top:.25rem">${S.clients.length} client${S.clients.length!==1?'s':''} in your book · ${S.policies.filter(p=>p.status==='active').length} active polic${S.policies.filter(p=>p.status==='active').length===1?'y':'ies'}</div>
   </div>
   <button class="btn btn-primary" onclick="navigate('clients');setTimeout(()=>showClientModal(),100)" style="background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);backdrop-filter:blur(8px);font-size:13px;padding:10px 20px">＋ Add New Client</button>
