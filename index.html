@@ -103,6 +103,20 @@ a{color:var(--blue);text-decoration:none}
   .two-col{grid-template-columns:1fr!important}
   .modal{max-height:95vh;border-radius:16px 16px 0 0;position:fixed;bottom:0;left:0;right:0;max-width:100%}
   #modal-overlay{align-items:flex-end;padding:0}
+  .detail-header{flex-direction:column;gap:.85rem}
+  .detail-actions{margin-top:.5rem}
+  .prospect-card{flex-wrap:wrap}
+  .pc-right{width:100%;display:flex;align-items:center;gap:.75rem;justify-content:flex-start;margin-top:.25rem}
+  .pc-right .pc-touches,.pc-right div{text-align:left}
+  .log-btns{gap:.4rem}
+  .log-btn{padding:6px 10px;font-size:11px}
+  .pipeline-stage-header{padding:.7rem 1rem}
+  .pipeline-stage-body{padding:.5rem 1rem}
+}
+@media(max-width:480px){
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .stat-card .value{font-size:1.4rem}
+  .badge{font-size:10px;padding:2px 6px}
 }
 
 /* FADE */
@@ -818,11 +832,11 @@ function renderAnalytics() {
     </div>
     <div class="card">
       <div class="card-header"><span class="card-title">Pipeline Stage Distribution</span></div>
-      <div style="display:flex;gap:1rem;flex-wrap:wrap">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:.75rem">
         ${stageFlow.map(({s,c})=>{
           const st=STAGES[s]
           const pct=S.prospects.length?Math.round(c/S.prospects.length*100):0
-          return `<div style="flex:1;min-width:100px;background:${st.bg};border-radius:8px;padding:.85rem;border:1px solid ${st.color}30">
+          return `<div style="background:${st.bg};border-radius:8px;padding:.85rem;border:1px solid ${st.color}30">
             <div style="font-size:11px;font-weight:700;color:${st.color};text-transform:uppercase;letter-spacing:.5px">${st.label}</div>
             <div style="font-size:1.5rem;font-weight:800;color:var(--navy);margin:.25rem 0;font-family:'Plus Jakarta Sans',sans-serif">${c}</div>
             <div style="font-size:11px;color:var(--muted)">${pct}% of total</div>
