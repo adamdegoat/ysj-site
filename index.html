@@ -51,7 +51,7 @@ create policy "open" on interactions for all using (true) with check (true);
   --sidebar:252px; --radius:10px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:#eef2f7;color:var(--text);font-size:14px;-webkit-font-smoothing:antialiased;background-image:radial-gradient(circle,rgba(37,99,235,.055) 1px,transparent 1px);background-size:24px 24px}
+body{font-family:'Inter',sans-serif;background:#edf1f7;color:var(--text);font-size:14px;-webkit-font-smoothing:antialiased;background-image:radial-gradient(ellipse at 85% 5%,rgba(99,102,241,.09) 0%,transparent 50%),radial-gradient(ellipse at 15% 95%,rgba(37,99,235,.07) 0%,transparent 50%),radial-gradient(circle,rgba(37,99,235,.04) 1px,transparent 1px);background-size:100% 100%,100% 100%,24px 24px}
 h1,h2,h3,.section-title,.stat-card .value,.sidebar-logo h2{font-family:'Plus Jakarta Sans',sans-serif}
 .hidden{display:none!important}
 a{color:var(--blue);text-decoration:none}
@@ -73,9 +73,9 @@ a{color:var(--blue);text-decoration:none}
 .sidebar-footer{padding:1rem 1.4rem;border-top:1px solid rgba(255,255,255,.07)}
 .main{margin-left:var(--sidebar);min-height:100vh;flex:1}
 .main-header{background:rgba(255,255,255,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(226,232,240,.7);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 1px 12px rgba(0,0,0,.06)}
-.main-header h1{font-size:1.15rem;font-weight:700;color:var(--text)}
+.main-header h1{font-size:1.15rem;font-weight:800;background:linear-gradient(135deg,#0f2342,#1e40af);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:'Plus Jakarta Sans',sans-serif}
 .content{padding:1.75rem 2rem}
-.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:linear-gradient(180deg,#0b1d3a,#0f2342);z-index:200;padding:.5rem 0 max(.25rem,env(safe-area-inset-bottom));border-top:1px solid rgba(255,255,255,.08);box-shadow:0 -4px 20px rgba(0,0,0,.25)}
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(9,22,48,.82);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:200;padding:.5rem 0 max(.25rem,env(safe-area-inset-bottom));border-top:1px solid rgba(255,255,255,.1);box-shadow:0 -4px 32px rgba(0,0,0,.3)}
 .bottom-nav-items{display:flex;justify-content:space-around}
 .bottom-nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;color:rgba(255,255,255,.5);cursor:pointer;font-size:10px;padding:.4rem .5rem;border-radius:8px;transition:all .15s;flex:1;min-width:0;position:relative}
 .bottom-nav-item.active{color:#93c5fd}
@@ -123,9 +123,14 @@ a{color:var(--blue);text-decoration:none}
   .card{padding:1rem}
 }
 
-/* FADE */
+/* ANIMATIONS */
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.fade-in{animation:fadeUp .22s ease both}
+@keyframes staggerIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.5)}70%{box-shadow:0 0 0 6px rgba(220,38,38,0)}}
+@keyframes shimmer{0%{left:-100%}100%{left:200%}}
+.fade-in{animation:fadeUp .25s ease both}
+.nav-badge{animation:pulse 2.2s infinite}
+.bnav-badge{animation:pulse 2.2s infinite}
 
 /* CARDS */
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem}
@@ -156,11 +161,11 @@ a{color:var(--blue);text-decoration:none}
 .stat-card.accent::before{background:rgba(255,255,255,.2)}
 .stat-card.accent .label,.stat-card.accent .sub{color:rgba(255,255,255,.6)}
 .stat-card.accent .value{color:#fff}
-.card{background:var(--card);border-radius:12px;border:1px solid var(--border);padding:1.4rem;margin-bottom:1rem;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.06);transition:box-shadow .2s}
-.card:hover{box-shadow:0 2px 6px rgba(0,0,0,.05),0 8px 24px rgba(0,0,0,.08)}
-.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;padding-bottom:.85rem;border-bottom:1px solid var(--border)}
-.card-title{font-size:14px;font-weight:700;color:var(--navy);font-family:'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;gap:.4rem}
-.section-title{font-size:17px;font-weight:800;color:var(--navy);margin-bottom:1rem;font-family:'Plus Jakarta Sans',sans-serif}
+.card{background:rgba(255,255,255,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:14px;border:1px solid rgba(226,232,240,.8);padding:1.4rem;margin-bottom:1rem;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 20px rgba(0,0,0,.06);transition:box-shadow .2s,transform .2s}
+.card:hover{box-shadow:0 2px 8px rgba(0,0,0,.06),0 10px 32px rgba(0,0,0,.09);transform:translateY(-1px)}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;padding-bottom:.85rem;border-bottom:1px solid rgba(226,232,240,.8)}
+.card-title{font-size:14px;font-weight:700;background:linear-gradient(135deg,#0f2342,#1e40af);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;gap:.4rem}
+.section-title{font-size:17px;font-weight:800;background:linear-gradient(135deg,#0f2342,#1d4ed8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1rem;font-family:'Plus Jakarta Sans',sans-serif}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
 @media(max-width:900px){.two-col{grid-template-columns:1fr}}
 
@@ -187,8 +192,10 @@ tr:hover td{background:#eff6ff!important}
 
 /* BUTTONS */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 16px;border-radius:var(--radius);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all .18s;letter-spacing:.1px}
-.btn-primary{background:linear-gradient(135deg,#1d4ed8 0%,#2563eb 100%);color:#fff;box-shadow:0 2px 8px rgba(37,99,235,.35)}
-.btn-primary:hover{background:linear-gradient(135deg,#1e40af 0%,#1d4ed8 100%);box-shadow:0 4px 14px rgba(37,99,235,.45);transform:translateY(-1px)}
+.btn-primary{background:linear-gradient(135deg,#1d4ed8 0%,#2563eb 100%);color:#fff;box-shadow:0 2px 8px rgba(37,99,235,.35);position:relative;overflow:hidden}
+.btn-primary::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);transform:skewX(-20deg);transition:left .55s}
+.btn-primary:hover{box-shadow:0 4px 18px rgba(37,99,235,.5);transform:translateY(-1px)}
+.btn-primary:hover::after{left:200%}
 .btn-secondary{background:var(--card);color:var(--text);border:1.5px solid var(--border)}
 .btn-secondary:hover{background:var(--bg)}
 .btn-danger{background:linear-gradient(135deg,#b91c1c,#dc2626);color:#fff}
@@ -249,8 +256,8 @@ textarea{resize:vertical;min-height:80px}
 .pipeline-stage-header.followup{background:linear-gradient(135deg,#fefce8,#fef9c3)}
 .pipeline-stage-header.won{background:linear-gradient(135deg,#f0fdf4,#dcfce7)}
 .pipeline-stage-header.cold{background:linear-gradient(135deg,#f8fafc,#f1f5f9)}
-.pipeline-stage-name{font-weight:700;font-size:13px;font-family:'Plus Jakarta Sans',sans-serif}
-.pipeline-stage-count{font-size:12px;color:var(--muted)}
+.pipeline-stage-name{font-weight:700;font-size:13px;font-family:'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;gap:.4rem}
+.pipeline-stage-count{font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;background:rgba(0,0,0,.08)}
 .pipeline-stage-body{padding:.75rem 1.2rem}
 .pipeline-prospect-row{display:flex;align-items:center;gap:.75rem;padding:.6rem 0;border-bottom:1px solid var(--border);cursor:pointer}
 .pipeline-prospect-row:last-child{border-bottom:none}
@@ -325,12 +332,12 @@ textarea{resize:vertical;min-height:80px}
 .calc-result .r-note{font-size:12px;color:rgba(255,255,255,.5);margin-top:.5rem}
 
 /* ANALYTICS */
-.source-bar{display:flex;flex-direction:column;gap:.6rem}
-.sb-row{display:flex;align-items:center;gap.75rem;gap:.75rem}
-.sb-label{width:90px;font-size:12px;font-weight:600;flex-shrink:0}
-.sb-track{flex:1;background:var(--border);border-radius:4px;height:8px;overflow:hidden}
-.sb-fill{height:100%;border-radius:4px;background:var(--blue2);transition:width .5s}
-.sb-count{width:20px;font-size:12px;color:var(--muted);text-align:right;flex-shrink:0}
+.source-bar{display:flex;flex-direction:column;gap:.75rem}
+.sb-row{display:flex;align-items:center;gap:.75rem}
+.sb-label{width:90px;font-size:12px;font-weight:600;flex-shrink:0;color:var(--text)}
+.sb-track{flex:1;background:#e8edf5;border-radius:6px;height:10px;overflow:hidden}
+.sb-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,#2563eb,#6366f1);transition:width .7s cubic-bezier(.4,0,.2,1)}
+.sb-count{width:24px;font-size:12px;font-weight:700;color:var(--navy);text-align:right;flex-shrink:0}
 </style>
 </head>
 <body>
@@ -502,14 +509,15 @@ function sourceBadge(src) {
   return `<span class="badge ${cls}">${SOURCES[src]||src||'—'}</span>`
 }
 function qualBar(q) {
-  const dots = Array.from({length:5},(_,i)=>`<span class="qual-dot${i<q?' filled':''}"></span>`).join('')
-  return `<div class="qual-dots">${dots}</div>`
+  const pct=(q/5)*100
+  const clr=q>=4?'linear-gradient(90deg,#16a34a,#22c55e)':q>=2?'linear-gradient(90deg,#2563eb,#6366f1)':'linear-gradient(90deg,#94a3b8,#cbd5e1)'
+  return `<div style="width:56px;height:5px;background:#e2e8f0;border-radius:4px;overflow:hidden;margin-top:3px"><div style="width:${pct}%;height:100%;background:${clr};border-radius:4px;transition:width .4s"></div></div>`
 }
 function avatar(name,size=40) {
   const colors=['#3b82f6','#8b5cf6','#0891b2','#059669','#d97706','#db2777','#7c3aed']
   const c=colors[(name||'A').charCodeAt(0)%colors.length]
   const i=(name||'?').split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase()
-  return `<div style="width:${size}px;height:${size}px;border-radius:50%;background:${c}18;border:2px solid ${c}40;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:${size*.35}px;color:${c};flex-shrink:0;font-family:'Plus Jakarta Sans',sans-serif">${i}</div>`
+  return `<div style="width:${size}px;height:${size}px;border-radius:50%;background:linear-gradient(135deg,${c}22,${c}11);border:2px solid ${c}55;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:${size*.35}px;color:${c};flex-shrink:0;font-family:'Plus Jakarta Sans',sans-serif;box-shadow:0 0 0 3px ${c}18,0 2px 8px ${c}20">${i}</div>`
 }
 function fmtDate(d) {
   if(!d) return '—'
@@ -643,8 +651,8 @@ function renderDashboard() {
         <div class="card" style="border-left:4px solid var(--red)">
           <div class="card-header"><span class="card-title" style="color:var(--red)">🔴 Overdue Follow-ups</span><span style="font-size:12px;color:var(--muted)">${overdue.length} pending</span></div>
           <div class="today-list">
-            ${overdue.map(p=>`
-              <div class="today-item overdue" onclick="navigate('prospect_detail','${p.id}')">
+            ${overdue.map((p,idx)=>`
+              <div class="today-item overdue" style="animation:staggerIn .25s ease both;animation-delay:${idx*45}ms" onclick="navigate('prospect_detail','${p.id}')">
                 ${avatar(p.name,34)}
                 <div style="flex:1;min-width:0">
                   <div class="ti-name">${p.name}</div>
@@ -659,8 +667,8 @@ function renderDashboard() {
           <div class="card-header"><span class="card-title" style="color:var(--orange)">🟡 Today's Follow-ups</span><span style="font-size:12px;color:var(--muted)">${today.length} scheduled</span></div>
           ${today.length===0?`<div style="color:var(--muted);font-size:13px;padding:.5rem 0">Nothing scheduled for today</div>`:`
           <div class="today-list">
-            ${today.map(p=>`
-              <div class="today-item today" onclick="navigate('prospect_detail','${p.id}')">
+            ${today.map((p,idx)=>`
+              <div class="today-item today" style="animation:staggerIn .25s ease both;animation-delay:${idx*45}ms" onclick="navigate('prospect_detail','${p.id}')">
                 ${avatar(p.name,34)}
                 <div style="flex:1;min-width:0">
                   <div class="ti-name">${p.name}</div>
@@ -692,8 +700,8 @@ function renderDashboard() {
           <div class="card-header"><span class="card-title">🔥 Most Engaged Prospects</span></div>
           ${topProspects.length===0?`<div style="color:var(--muted);font-size:13px">No prospects yet</div>`:`
           <div class="today-list">
-            ${topProspects.map(p=>`
-              <div class="today-item" onclick="navigate('prospect_detail','${p.id}')">
+            ${topProspects.map((p,idx)=>`
+              <div class="today-item" style="animation:staggerIn .25s ease both;animation-delay:${idx*45}ms" onclick="navigate('prospect_detail','${p.id}')">
                 ${avatar(p.name,34)}
                 <div style="flex:1;min-width:0">
                   <div class="ti-name">${p.name}</div>
@@ -743,11 +751,11 @@ function renderProspects() {
     <div style="font-size:12px;color:var(--muted);margin-bottom:.75rem">${filtered.length} prospect${filtered.length!==1?'s':''}</div>
     <div class="prospect-list">
       ${filtered.length===0?`<div class="empty-state"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg><p>No prospects found</p></div>`:''}
-      ${filtered.map(p=>{
+      ${filtered.map((p,idx)=>{
         const tc = touchCount(p.id)
         const lc = lastContact(p.id)
         const cls = cardClass(p)
-        return `<div class="prospect-card ${cls}" onclick="navigate('prospect_detail','${p.id}')">
+        return `<div class="prospect-card ${cls}" style="animation:staggerIn .28s ease both;animation-delay:${idx*48}ms" onclick="navigate('prospect_detail','${p.id}')">
           ${avatar(p.name,44)}
           <div class="pc-main">
             <div class="pc-name">${p.name}</div>
@@ -780,10 +788,11 @@ function renderPipeline() {
       ${STAGE_ORDER.map(stage=>{
         const prospects = S.prospects.filter(p=>p.stage===stage)
         const st = STAGES[stage]
-        return `<div class="pipeline-stage">
+        const icons={new_lead:'🌱',contacted:'📞',needs_analysis:'🔍',proposal_sent:'📋',followup:'⏰',won:'🏆',cold:'❄️'}
+        return `<div class="pipeline-stage" style="animation:staggerIn .25s ease both;animation-delay:${STAGE_ORDER.indexOf(stage)*55}ms">
           <div class="pipeline-stage-header ${stage}">
-            <span class="pipeline-stage-name" style="color:${st.color}">${st.label}</span>
-            <span class="pipeline-stage-count">${prospects.length} prospect${prospects.length!==1?'s':''}</span>
+            <span class="pipeline-stage-name" style="color:${st.color}">${icons[stage]} ${st.label}</span>
+            <span class="pipeline-stage-count" style="color:${st.color};background:${st.bg}">${prospects.length}</span>
           </div>
           <div class="pipeline-stage-body">
             ${prospects.length===0?`<div style="font-size:12px;color:var(--muted2);padding:.25rem 0">None</div>`:''}
